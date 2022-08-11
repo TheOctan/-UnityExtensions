@@ -1,0 +1,24 @@
+{
+  "name": "com.octangames.unity-extensions",
+  "version": "1.0.0",
+  "displayName": "Unity Extensions",
+  "description": "This package contains extensions for GameObject, Transform, Physics, Vector, Color, Collections and has linear converter for mathematical transformations.",
+  "unity": "2019.1",
+  "keywords": [
+    "unity",
+    "extensions",
+    "tools",
+    "physics",
+    "transform",
+    "color",
+    "collections",
+    "gameobject",
+    "convert",
+    "vector"
+  ],
+  "author": {
+    "name": "TheOctan",
+    "email": "kanatush.tim@gmail.com"
+  },
+  "type": "tool"
+}
