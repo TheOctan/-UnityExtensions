@@ -1,13 +1,25 @@
 ﻿using UnityEngine;
+using UnityExtensions.Math;
 
-namespace UnityExtensions
+namespace UnityExtensions.Render
 {
     public static partial class ColorExtensions
     {
+        public static void SetStartColor(this ParticleSystem particleSystem, Color color)
+        {
+            ParticleSystem.MainModule main = particleSystem.main;
+            main.startColor = color;
+        }
+
+        public static void SetAlpha(this ParticleSystem particleSystem, float alpha)
+        {
+            ParticleSystem.MainModule main = particleSystem.main;
+            main.startColor = main.startColor.color.SetAlpha(alpha);
+        }
+
         public static void SetAlpha(this SpriteRenderer spriteRenderer, float alpha)
         {
-            Color color = spriteRenderer.color;
-            spriteRenderer.color = new Color(color.r, color.g, color.b, alpha);
+            spriteRenderer.color = spriteRenderer.color.SetAlpha(alpha);
         }
 
         public static Color SetAlpha(this Color color, float alpha)

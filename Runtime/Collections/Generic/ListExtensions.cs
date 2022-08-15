@@ -1,10 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace UnityExtensions
+namespace UnityExtensions.Collections.Generic
 {
-    public static partial class CollectionExtensions
+    public static partial class ListExtensions
     {
+        public static List<T> Reversed<T>(this List<T> list)
+        {
+            list.Reverse();
+            return list;
+        }
+
         public static IList<T> Shuffle<T>(this IList<T> list)
         {
             return list.Shuffle(DateTime.Now.Second);
@@ -23,24 +29,24 @@ namespace UnityExtensions
             return list;
         }
 
-        public static T RandomItem<T>(this List<T> list)
+        public static T RandomItem<T>(this IList<T> list)
         {
             return RandomItem(list, DateTime.Now.Second);
         }
 
-        public static T RandomItem<T>(this List<T> list, int seed)
+        public static T RandomItem<T>(this IList<T> list, int seed)
         {
             var random = new Random(seed);
             int index = random.Next(0, list.Count);
             return list[index];
         }
 
-        public static T RandomByChance<T>(this List<T> list) where T : IRandomChance
+        public static T RandomByChance<T>(this IList<T> list) where T : IRandomChance
         {
             return RandomByChance(list, DateTime.Now.Second);
         }
 
-        public static T RandomByChance<T>(this List<T> list, int seed) where T : IRandomChance
+        public static T RandomByChance<T>(this IList<T> list, int seed) where T : IRandomChance
         {
             var random = new Random(seed);
 
@@ -65,37 +71,6 @@ namespace UnityExtensions
             }
 
             return list[0];
-        }
-
-        /// <summary>
-        /// Returns min and max values from map
-        /// </summary>
-        /// <param name="map"></param>
-        /// <returns></returns>
-        public static (float min, float max) MinMax(this float[,] map)
-        {
-            int width = map.GetLength(0);
-            int height = map.GetLength(1);
-
-            var max = float.MinValue;
-            var min = float.MaxValue;
-
-            for (var y = 0; y < height; y++)
-            {
-                for (var x = 0; x < width; x++)
-                {
-                    if (map[x, y] > max)
-                    {
-                        max = map[x, y];
-                    }
-                    if (map[x, y] < min)
-                    {
-                        min = map[x, y];
-                    }
-                }
-            }
-            
-            return (min, max);
         }
 
         public interface IRandomChance

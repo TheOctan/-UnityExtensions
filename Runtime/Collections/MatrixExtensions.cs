@@ -1,79 +1,17 @@
-using UnityEngine;
+﻿using UnityEngine;
+using UnityExtensions.Math;
 
-namespace UnityExtensions
+namespace UnityExtensions.Collections
 {
-    public static partial class LinearConverter
+    public static partial class MatrixExtensions
     {
-        public static float CoordinateToColor(float value)
-        {
-            // XYZ=[-1..1] => RGB=[0..1]
-            // return Mathf.InverseLerp(-1, 1, value);
-            return (value + 1) * 0.5f;
-        }
-
-        public static float ColorToCoordinate(float value)
-        {
-            // RGB=[0..1] => XYZ=[-1..1]
-            // return Mathf.Lerp(-1, 1, value);
-            return value * 2 - 1;
-        }
-
-        public static int CoordinateToIndex(int x, int y, int width)
-        {
-            return x + y * width;
-        }
-
-        public static int CoordinateToIndex(int x, int y, int z, int width, int height)
-        {
-            return x + y * width + z * width * height;
-        }
-
-        public static (int x, int y) IndexToCoordinate(this int index, int width)
-        {
-            int x = index % width;
-            int y = index / width;
-            return (x, y);
-        }
-
-        public static (int x, int y, int z) IndexToCoordinate(this int index, int width, int height)
-        {
-            int x = index % width;
-            int y = (index / width) % height;
-            int z = index / (width * height);
-            return (x, y, z);
-        }
-
-        public static Vector2Int IndexToVector(this int index, int width)
-        {
-            int x = index % width;
-            int y = index / width;
-            return new Vector2Int(x, y);
-        }
-
-        public static Vector3Int IndexToVector(this int index, int width, int height)
-        {
-            int x = index % width;
-            int y = (index / width) % height;
-            int z = index / (width * height);
-            return new Vector3Int(x, y, z);
-        }
-
         /// <summary>
         /// Convert all values of map to brightness
         /// </summary>
         /// <param name="map"></param>
         public static void ConvertToBrightness(this float[,] map)
         {
-            int width = map.GetLength(0);
-            int height = map.GetLength(1);
-
-            for (var y = 0; y < height; y++)
-            {
-                for (var x = 0; x < width; x++)
-                {
-                    map[x, y] = CoordinateToColor(map[x, y]);
-                }
-            }
+            ConvertToColor(map);
         }
 
         /// <summary>
@@ -82,11 +20,30 @@ namespace UnityExtensions
         /// <param name="map"></param>
         public static void ConvertToColor(this float[,] map)
         {
-            ConvertToBrightness(map);
+            int width = map.GetLength(0);
+            int height = map.GetLength(1);
+
+            for (var y = 0; y < height; y++)
+            {
+                for (var x = 0; x < width; x++)
+                {
+                    map[x, y] = LinearConverter.CoordinateToColor(map[x, y]);
+                }
+            }
         }
 
         /// <summary>
-        /// Copy map and convert all values of map to color
+        /// Copy map and convert all values of map to brightness
+        /// </summary>
+        /// <param name="map"></param>
+        /// <returns></returns>
+        public static float[,] GetConvertedToBrightness(this float[,] map)
+        {
+            return GetConvertedToColor(map);
+        }
+
+        /// <summary>
+        /// Copy map and convert all values of map to brightness
         /// </summary>
         /// <param name="map"></param>
         public static float[,] GetConvertedToColor(this float[,] map)
@@ -100,7 +57,7 @@ namespace UnityExtensions
             {
                 for (var x = 0; x < width; x++)
                 {
-                    newMap[x, y] = CoordinateToColor(map[x, y]);
+                    newMap[x, y] = LinearConverter.CoordinateToColor(map[x, y]);
                 }
             }
 
@@ -117,7 +74,7 @@ namespace UnityExtensions
         {
             int width = map.GetLength(0);
             int height = map.GetLength(1);
-            
+
             for (var y = 0; y < height; y++)
             {
                 for (var x = 0; x < width; x++)
@@ -150,6 +107,38 @@ namespace UnityExtensions
             }
 
             return newMap;
+        }
+
+        /// <summary>
+        /// Returns min and max values from map
+        /// </summary>
+        /// <param name="map"></param>
+        /// <returns></returns>
+        public static (float min, float max) MinMax(this float[,] map)
+        {
+            int width = map.GetLength(0);
+            int height = map.GetLength(1);
+
+            var max = float.MinValue;
+            var min = float.MaxValue;
+
+            for (var y = 0; y < height; y++)
+            {
+                for (var x = 0; x < width; x++)
+                {
+                    if (map[x, y] > max)
+                    {
+                        max = map[x, y];
+                    }
+
+                    if (map[x, y] < min)
+                    {
+                        min = map[x, y];
+                    }
+                }
+            }
+
+            return (min, max);
         }
     }
 }

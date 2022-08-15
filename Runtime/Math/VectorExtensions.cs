@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace UnityExtensions
+namespace UnityExtensions.Math
 {
     public static partial class VectorExtensions
     {
@@ -9,9 +9,33 @@ namespace UnityExtensions
             float radians = degrees * Mathf.Deg2Rad;
             float sin = Mathf.Sin(radians);
             float cos = Mathf.Cos(radians);
- 
+
             return new Vector2(cos * v.x - sin * v.y, sin * v.x + cos * v.y);
         }
+
+        #region Orientation
+
+        public static Vector3 ToVertical(this Vector2 position)
+        {
+            return new Vector3(position.x, position.y, 0);
+        }
+
+        public static Vector3 ToHorizontal(this Vector2 position)
+        {
+            return new Vector3(position.x, 0, position.y);
+        }
+
+        public static Vector3 ToVertical(this Vector2Int position)
+        {
+            return new Vector3(position.x, position.y, 0);
+        }
+
+        public static Vector3 ToHorizontal(this Vector2Int position)
+        {
+            return new Vector3(position.x, 0, position.y);
+        }
+
+        #endregion
 
         #region Convert
 
@@ -42,7 +66,7 @@ namespace UnityExtensions
         {
             return new Vector3(Mathf.Abs(v.x), Mathf.Abs(v.y), Mathf.Abs(v.z));
         }
-        
+
         public static Vector2 Abs(this Vector2 v)
         {
             return new Vector2(Mathf.Abs(v.x), Mathf.Abs(v.y));
@@ -52,7 +76,7 @@ namespace UnityExtensions
         {
             return new Vector3Int(Mathf.Abs(v.x), Mathf.Abs(v.y), Mathf.Abs(v.z));
         }
-        
+
         public static Vector2Int Abs(this Vector2Int v)
         {
             return new Vector2Int(Mathf.Abs(v.x), Mathf.Abs(v.y));
@@ -60,24 +84,24 @@ namespace UnityExtensions
 
         #endregion
 
-        #region Max
+        #region MaxDimensionValue
 
-        public static float Max(this Vector3 v)
+        public static float MaxDimensionValue(this Vector3 v)
         {
             return Mathf.Max(v.x, Mathf.Max(v.y, v.z));
         }
 
-        public static float Max(this Vector2 v)
+        public static float MaxDimensionValue(this Vector2 v)
         {
             return Mathf.Max(v.x, v.y);
         }
 
-        public static int Max(this Vector3Int v)
+        public static int MaxDimensionValue(this Vector3Int v)
         {
             return Mathf.Max(v.x, Mathf.Max(v.y, v.z));
         }
 
-        public static int Max(this Vector2Int v)
+        public static int MaxDimensionValue(this Vector2Int v)
         {
             return Mathf.Max(v.x, v.y);
         }
@@ -86,22 +110,22 @@ namespace UnityExtensions
 
         #region Min
 
-        public static float Min(this Vector3 v)
+        public static float MinDimensionValue(this Vector3 v)
         {
             return Mathf.Min(v.x, Mathf.Min(v.y, v.z));
         }
 
-        public static float Min(this Vector2 v)
+        public static float MinDimensionValue(this Vector2 v)
         {
             return Mathf.Min(v.x, v.y);
         }
 
-        public static int Min(this Vector3Int v)
+        public static int MinDimensionValue(this Vector3Int v)
         {
             return Mathf.Min(v.x, Mathf.Min(v.y, v.z));
         }
 
-        public static int Min(this Vector2Int v)
+        public static int MinDimensionValue(this Vector2Int v)
         {
             return Mathf.Min(v.x, v.y);
         }
@@ -161,12 +185,12 @@ namespace UnityExtensions
         {
             return new Vector2(x, v.y);
         }
-        
+
         public static Vector3Int SetX(this Vector3Int v, int x)
         {
             return new Vector3Int(x, v.y, v.z);
         }
-        
+
         public static Vector2Int SetX(this Vector2Int v, int x)
         {
             return new Vector2Int(x, v.y);
@@ -180,17 +204,17 @@ namespace UnityExtensions
         {
             return new Vector3(v.x, y, v.z);
         }
-        
+
         public static Vector2 SetY(this Vector2 v, float y)
         {
             return new Vector2(v.x, y);
         }
-        
+
         public static Vector3Int SetY(this Vector3Int v, int y)
         {
             return new Vector3Int(v.x, y, v.z);
         }
-        
+
         public static Vector2Int SetY(this Vector2Int v, int y)
         {
             return new Vector2Int(v.x, y);
@@ -212,37 +236,13 @@ namespace UnityExtensions
 
         #endregion
 
-        #region TileCenter
-
-        public static Vector2 TileCenter(this Vector2 v)
-        {
-            return new Vector2(v.x + 0.5f, v.y + 0.5f);
-        }
- 
-        public static Vector2 TileCenter(this Vector3 v)
-        {
-            return new Vector2(v.x + 0.5f, v.y + 0.5f);
-        }
-
-        public static Vector2 TileCenter(this Vector2Int v)
-        {
-            return new Vector2(v.x + 0.5f, v.y + 0.5f);
-        }
- 
-        public static Vector2 TileCenter(this Vector3Int v)
-        {
-            return new Vector2(v.x + 0.5f, v.y + 0.5f);
-        }
-
-        #endregion
-
         #region Half
 
         public static Vector2 Half(this Vector2 v)
         {
             return v * 0.5f;
         }
-        
+
         public static Vector3 Half(this Vector3 v)
         {
             return v * 0.5f;
@@ -252,10 +252,128 @@ namespace UnityExtensions
         {
             return v / 2;
         }
-        
+
         public static Vector3Int Half(this Vector3Int v)
         {
             return v / 2;
+        }
+
+        #endregion
+
+        #region Multiply
+
+        public static Vector2 Multiply(this Vector2 v, Vector2 other)
+        {
+            return new Vector2(v.x * other.x, v.y * other.y);
+        }
+
+        public static Vector3 Multiply(this Vector3 v, Vector3 other)
+        {
+            return new Vector3(v.x * other.x, v.y * other.y, v.z * other.z);
+        }
+
+        public static Vector2Int Multiply(this Vector2Int v, Vector2Int other)
+        {
+            return new Vector2Int(v.x * other.x, v.y * other.y);
+        }
+
+        public static Vector3Int Multiply(this Vector3Int v, Vector3Int other)
+        {
+            return new Vector3Int(v.x * other.x, v.y * other.y, v.z * other.z);
+        }
+
+        public static Vector2 Multiply(this Vector2 v, Vector2Int other)
+        {
+            return new Vector2(v.x * other.x, v.y * other.y);
+        }
+
+        public static Vector3 Multiply(this Vector3 v, Vector3Int other)
+        {
+            return new Vector3(v.x * other.x, v.y * other.y, v.z * other.z);
+        }
+
+        public static Vector2 Multiply(this Vector2Int v, Vector2 other)
+        {
+            return new Vector2(v.x * other.x, v.y * other.y);
+        }
+
+        public static Vector3 Multiply(this Vector3Int v, Vector3 other)
+        {
+            return new Vector3(v.x * other.x, v.y * other.y, v.z * other.z);
+        }
+
+        #endregion
+
+        #region Divide
+
+        public static Vector2 Divide(this Vector2 v, int value)
+        {
+            return new Vector2(v.x / value, v.y / value);
+        }
+
+        public static Vector3 Divide(this Vector3 v, int value)
+        {
+            return new Vector3(v.x / value, v.y / value, v.z / value);
+        }
+
+        public static Vector2 Divide(this Vector2Int v, int value)
+        {
+            return new Vector2((float)v.x / value, (float)v.y / value);
+        }
+
+        public static Vector3 Divide(this Vector3Int v, int value)
+        {
+            return new Vector3((float)v.x / value, (float)v.y / value, (float)v.z / value);
+        }
+
+        public static Vector2 Divide(this Vector2 v, float value)
+        {
+            return new Vector2(v.x / value, v.y / value);
+        }
+
+        public static Vector3 Divide(this Vector3 v, float value)
+        {
+            return new Vector3(v.x / value, v.y / value, v.z / value);
+        }
+
+        public static Vector2 Divide(this Vector2Int v, float value)
+        {
+            return new Vector2(v.x / value, v.y / value);
+        }
+
+        public static Vector3 Divide(this Vector3Int v, float value)
+        {
+            return new Vector3(v.x / value, v.y / value, v.z / value);
+        }
+
+        public static Vector2 Divide(this Vector2 v, Vector2 other)
+        {
+            return new Vector2(v.x / other.x, v.y / other.y);
+        }
+
+        public static Vector3 Divide(this Vector3 v, Vector3 other)
+        {
+            return new Vector3(v.x / other.x, v.y / other.y, v.z / other.z);
+        }
+
+        public static Vector2 Divide(this Vector2Int v, Vector2 other)
+        {
+            return new Vector2(v.x / other.x, v.y / other.y);
+        }
+
+        public static Vector3 Divide(this Vector3Int v, Vector3 other)
+        {
+            return new Vector3(v.x / other.x, v.y / other.y, v.z / other.z);
+        }
+
+        public static Vector2 Divide(this Vector2 v, Vector2Int other)
+        {
+            return new Vector2(v.x / other.x, v.y / other.y);
+        }
+
+        public static Vector3 Divide(this Vector3 v, Vector3Int other)
+        {
+            return new Vector3(v.x / other.x, v.y / other.y, v.z / other.z);
         }
 
         #endregion

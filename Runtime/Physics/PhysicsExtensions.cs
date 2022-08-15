@@ -1,69 +1,72 @@
 ﻿using UnityEngine;
+using UnityExtensions.Math;
 
-namespace UnityExtensions
+namespace UnityExtensions.Physics
 {
     public static partial class PhysicsExtensions
     {
         #region Box
 
         public static bool BoxCast(BoxCollider box, Vector3 direction, float maxDistance = Mathf.Infinity,
-            int layerMask = Physics.DefaultRaycastLayers,
+            int layerMask = UnityEngine.Physics.DefaultRaycastLayers,
             QueryTriggerInteraction queryTriggerInteraction = QueryTriggerInteraction.UseGlobal)
         {
             box.ToWorldSpaceBox(out Vector3 center, out Vector3 halfExtents, out Quaternion orientation);
-            return Physics.BoxCast(center, halfExtents, direction, orientation, maxDistance, layerMask,
+            return UnityEngine.Physics.BoxCast(center, halfExtents, direction, orientation, maxDistance, layerMask,
                 queryTriggerInteraction);
         }
 
         public static bool BoxCast(BoxCollider box, Vector3 direction, out RaycastHit hitInfo,
-            float maxDistance = Mathf.Infinity, int layerMask = Physics.DefaultRaycastLayers,
+            float maxDistance = Mathf.Infinity, int layerMask = UnityEngine.Physics.DefaultRaycastLayers,
             QueryTriggerInteraction queryTriggerInteraction = QueryTriggerInteraction.UseGlobal)
         {
             box.ToWorldSpaceBox(out Vector3 center, out Vector3 halfExtents, out Quaternion orientation);
-            return Physics.BoxCast(center, halfExtents, direction, out hitInfo, orientation, maxDistance, layerMask,
+            return UnityEngine.Physics.BoxCast(center, halfExtents, direction, out hitInfo, orientation, maxDistance,
+                layerMask,
                 queryTriggerInteraction);
         }
 
         public static RaycastHit[] BoxCastAll(BoxCollider box, Vector3 direction, float maxDistance = Mathf.Infinity,
-            int layerMask = Physics.DefaultRaycastLayers,
+            int layerMask = UnityEngine.Physics.DefaultRaycastLayers,
             QueryTriggerInteraction queryTriggerInteraction = QueryTriggerInteraction.UseGlobal)
         {
             box.ToWorldSpaceBox(out Vector3 center, out Vector3 halfExtents, out Quaternion orientation);
             // ReSharper disable once Unity.PreferNonAllocApi
-            return Physics.BoxCastAll(center, halfExtents, direction, orientation, maxDistance, layerMask,
+            return UnityEngine.Physics.BoxCastAll(center, halfExtents, direction, orientation, maxDistance, layerMask,
                 queryTriggerInteraction);
         }
 
         public static int BoxCastNonAlloc(BoxCollider box, Vector3 direction, RaycastHit[] results,
-            float maxDistance = Mathf.Infinity, int layerMask = Physics.DefaultRaycastLayers,
+            float maxDistance = Mathf.Infinity, int layerMask = UnityEngine.Physics.DefaultRaycastLayers,
             QueryTriggerInteraction queryTriggerInteraction = QueryTriggerInteraction.UseGlobal)
         {
             box.ToWorldSpaceBox(out Vector3 center, out Vector3 halfExtents, out Quaternion orientation);
-            return Physics.BoxCastNonAlloc(center, halfExtents, direction, results, orientation, maxDistance, layerMask,
+            return UnityEngine.Physics.BoxCastNonAlloc(center, halfExtents, direction, results, orientation,
+                maxDistance, layerMask,
                 queryTriggerInteraction);
         }
 
-        public static bool CheckBox(BoxCollider box, int layerMask = Physics.DefaultRaycastLayers,
+        public static bool CheckBox(BoxCollider box, int layerMask = UnityEngine.Physics.DefaultRaycastLayers,
             QueryTriggerInteraction queryTriggerInteraction = QueryTriggerInteraction.UseGlobal)
         {
             box.ToWorldSpaceBox(out Vector3 center, out Vector3 halfExtents, out Quaternion orientation);
-            return Physics.CheckBox(center, halfExtents, orientation, layerMask, queryTriggerInteraction);
+            return UnityEngine.Physics.CheckBox(center, halfExtents, orientation, layerMask, queryTriggerInteraction);
         }
 
-        public static Collider[] OverlapBox(BoxCollider box, int layerMask = Physics.DefaultRaycastLayers,
+        public static Collider[] OverlapBox(BoxCollider box, int layerMask = UnityEngine.Physics.DefaultRaycastLayers,
             QueryTriggerInteraction queryTriggerInteraction = QueryTriggerInteraction.UseGlobal)
         {
             box.ToWorldSpaceBox(out Vector3 center, out Vector3 halfExtents, out Quaternion orientation);
             // ReSharper disable once Unity.PreferNonAllocApi
-            return Physics.OverlapBox(center, halfExtents, orientation, layerMask, queryTriggerInteraction);
+            return UnityEngine.Physics.OverlapBox(center, halfExtents, orientation, layerMask, queryTriggerInteraction);
         }
 
         public static int OverlapBoxNonAlloc(BoxCollider box, Collider[] results,
-            int layerMask = Physics.DefaultRaycastLayers,
+            int layerMask = UnityEngine.Physics.DefaultRaycastLayers,
             QueryTriggerInteraction queryTriggerInteraction = QueryTriggerInteraction.UseGlobal)
         {
             box.ToWorldSpaceBox(out Vector3 center, out Vector3 halfExtents, out Quaternion orientation);
-            return Physics.OverlapBoxNonAlloc(center, halfExtents, results, orientation, layerMask,
+            return UnityEngine.Physics.OverlapBoxNonAlloc(center, halfExtents, results, orientation, layerMask,
                 queryTriggerInteraction);
         }
 
@@ -72,53 +75,56 @@ namespace UnityExtensions
         #region Sphere
 
         public static bool SphereCast(SphereCollider sphere, Vector3 direction, out RaycastHit hitInfo,
-            float maxDistance = Mathf.Infinity, int layerMask = Physics.DefaultRaycastLayers,
+            float maxDistance = Mathf.Infinity, int layerMask = UnityEngine.Physics.DefaultRaycastLayers,
             QueryTriggerInteraction queryTriggerInteraction = QueryTriggerInteraction.UseGlobal)
         {
             sphere.ToWorldSpaceSphere(out Vector3 center, out float radius);
-            return Physics.SphereCast(center, radius, direction, out hitInfo, maxDistance, layerMask,
+            return UnityEngine.Physics.SphereCast(center, radius, direction, out hitInfo, maxDistance, layerMask,
                 queryTriggerInteraction);
         }
 
         public static RaycastHit[] SphereCastAll(SphereCollider sphere, Vector3 direction,
-            float maxDistance = Mathf.Infinity, int layerMask = Physics.DefaultRaycastLayers,
+            float maxDistance = Mathf.Infinity, int layerMask = UnityEngine.Physics.DefaultRaycastLayers,
             QueryTriggerInteraction queryTriggerInteraction = QueryTriggerInteraction.UseGlobal)
         {
             sphere.ToWorldSpaceSphere(out Vector3 center, out float radius);
             // ReSharper disable once Unity.PreferNonAllocApi
-            return Physics.SphereCastAll(center, radius, direction, maxDistance, layerMask, queryTriggerInteraction);
-        }
-
-        public static int SphereCastNonAlloc(SphereCollider sphere, Vector3 direction, RaycastHit[] results,
-            float maxDistance = Mathf.Infinity, int layerMask = Physics.DefaultRaycastLayers,
-            QueryTriggerInteraction queryTriggerInteraction = QueryTriggerInteraction.UseGlobal)
-        {
-            sphere.ToWorldSpaceSphere(out Vector3 center, out float radius);
-            return Physics.SphereCastNonAlloc(center, radius, direction, results, maxDistance, layerMask,
+            return UnityEngine.Physics.SphereCastAll(center, radius, direction, maxDistance, layerMask,
                 queryTriggerInteraction);
         }
 
-        public static bool CheckSphere(SphereCollider sphere, int layerMask = Physics.DefaultRaycastLayers,
+        public static int SphereCastNonAlloc(SphereCollider sphere, Vector3 direction, RaycastHit[] results,
+            float maxDistance = Mathf.Infinity, int layerMask = UnityEngine.Physics.DefaultRaycastLayers,
             QueryTriggerInteraction queryTriggerInteraction = QueryTriggerInteraction.UseGlobal)
         {
             sphere.ToWorldSpaceSphere(out Vector3 center, out float radius);
-            return Physics.CheckSphere(center, radius, layerMask, queryTriggerInteraction);
+            return UnityEngine.Physics.SphereCastNonAlloc(center, radius, direction, results, maxDistance, layerMask,
+                queryTriggerInteraction);
         }
 
-        public static Collider[] OverlapSphere(SphereCollider sphere, int layerMask = Physics.DefaultRaycastLayers,
+        public static bool CheckSphere(SphereCollider sphere, int layerMask = UnityEngine.Physics.DefaultRaycastLayers,
+            QueryTriggerInteraction queryTriggerInteraction = QueryTriggerInteraction.UseGlobal)
+        {
+            sphere.ToWorldSpaceSphere(out Vector3 center, out float radius);
+            return UnityEngine.Physics.CheckSphere(center, radius, layerMask, queryTriggerInteraction);
+        }
+
+        public static Collider[] OverlapSphere(SphereCollider sphere,
+            int layerMask = UnityEngine.Physics.DefaultRaycastLayers,
             QueryTriggerInteraction queryTriggerInteraction = QueryTriggerInteraction.UseGlobal)
         {
             sphere.ToWorldSpaceSphere(out Vector3 center, out float radius);
             // ReSharper disable once Unity.PreferNonAllocApi
-            return Physics.OverlapSphere(center, radius, layerMask, queryTriggerInteraction);
+            return UnityEngine.Physics.OverlapSphere(center, radius, layerMask, queryTriggerInteraction);
         }
 
         public static int OverlapSphereNonAlloc(SphereCollider sphere, Collider[] results,
-            int layerMask = Physics.DefaultRaycastLayers,
+            int layerMask = UnityEngine.Physics.DefaultRaycastLayers,
             QueryTriggerInteraction queryTriggerInteraction = QueryTriggerInteraction.UseGlobal)
         {
             sphere.ToWorldSpaceSphere(out Vector3 center, out float radius);
-            return Physics.OverlapSphereNonAlloc(center, radius, results, layerMask, queryTriggerInteraction);
+            return UnityEngine.Physics.OverlapSphereNonAlloc(center, radius, results, layerMask,
+                queryTriggerInteraction);
         }
 
         #endregion
@@ -126,54 +132,59 @@ namespace UnityExtensions
         #region Capsule
 
         public static bool CapsuleCast(CapsuleCollider capsule, Vector3 direction, out RaycastHit hitInfo,
-            float maxDistance = Mathf.Infinity, int layerMask = Physics.DefaultRaycastLayers,
+            float maxDistance = Mathf.Infinity, int layerMask = UnityEngine.Physics.DefaultRaycastLayers,
             QueryTriggerInteraction queryTriggerInteraction = QueryTriggerInteraction.UseGlobal)
         {
             capsule.ToWorldSpaceCapsule(out Vector3 point0, out Vector3 point1, out float radius);
-            return Physics.CapsuleCast(point0, point1, radius, direction, out hitInfo, maxDistance, layerMask,
+            return UnityEngine.Physics.CapsuleCast(point0, point1, radius, direction, out hitInfo, maxDistance,
+                layerMask,
                 queryTriggerInteraction);
         }
 
         public static RaycastHit[] CapsuleCastAll(CapsuleCollider capsule, Vector3 direction,
-            float maxDistance = Mathf.Infinity, int layerMask = Physics.DefaultRaycastLayers,
+            float maxDistance = Mathf.Infinity, int layerMask = UnityEngine.Physics.DefaultRaycastLayers,
             QueryTriggerInteraction queryTriggerInteraction = QueryTriggerInteraction.UseGlobal)
         {
             capsule.ToWorldSpaceCapsule(out Vector3 point0, out Vector3 point1, out float radius);
             // ReSharper disable once Unity.PreferNonAllocApi
-            return Physics.CapsuleCastAll(point0, point1, radius, direction, maxDistance, layerMask,
+            return UnityEngine.Physics.CapsuleCastAll(point0, point1, radius, direction, maxDistance, layerMask,
                 queryTriggerInteraction);
         }
 
         public static int CapsuleCastNonAlloc(CapsuleCollider capsule, Vector3 direction, RaycastHit[] results,
-            float maxDistance = Mathf.Infinity, int layerMask = Physics.DefaultRaycastLayers,
+            float maxDistance = Mathf.Infinity, int layerMask = UnityEngine.Physics.DefaultRaycastLayers,
             QueryTriggerInteraction queryTriggerInteraction = QueryTriggerInteraction.UseGlobal)
         {
             capsule.ToWorldSpaceCapsule(out Vector3 point0, out Vector3 point1, out float radius);
-            return Physics.CapsuleCastNonAlloc(point0, point1, radius, direction, results, maxDistance, layerMask,
+            return UnityEngine.Physics.CapsuleCastNonAlloc(point0, point1, radius, direction, results, maxDistance,
+                layerMask,
                 queryTriggerInteraction);
         }
 
-        public static bool CheckCapsule(CapsuleCollider capsule, int layerMask = Physics.DefaultRaycastLayers,
+        public static bool CheckCapsule(CapsuleCollider capsule,
+            int layerMask = UnityEngine.Physics.DefaultRaycastLayers,
             QueryTriggerInteraction queryTriggerInteraction = QueryTriggerInteraction.UseGlobal)
         {
             capsule.ToWorldSpaceCapsule(out Vector3 point0, out Vector3 point1, out float radius);
-            return Physics.CheckCapsule(point0, point1, radius, layerMask, queryTriggerInteraction);
+            return UnityEngine.Physics.CheckCapsule(point0, point1, radius, layerMask, queryTriggerInteraction);
         }
 
-        public static Collider[] OverlapCapsule(CapsuleCollider capsule, int layerMask = Physics.DefaultRaycastLayers,
+        public static Collider[] OverlapCapsule(CapsuleCollider capsule,
+            int layerMask = UnityEngine.Physics.DefaultRaycastLayers,
             QueryTriggerInteraction queryTriggerInteraction = QueryTriggerInteraction.UseGlobal)
         {
             capsule.ToWorldSpaceCapsule(out Vector3 point0, out Vector3 point1, out float radius);
             // ReSharper disable once Unity.PreferNonAllocApi
-            return Physics.OverlapCapsule(point0, point1, radius, layerMask, queryTriggerInteraction);
+            return UnityEngine.Physics.OverlapCapsule(point0, point1, radius, layerMask, queryTriggerInteraction);
         }
 
         public static int OverlapCapsuleNonAlloc(CapsuleCollider capsule, Collider[] results,
-            int layerMask = Physics.DefaultRaycastLayers,
+            int layerMask = UnityEngine.Physics.DefaultRaycastLayers,
             QueryTriggerInteraction queryTriggerInteraction = QueryTriggerInteraction.UseGlobal)
         {
             capsule.ToWorldSpaceCapsule(out Vector3 point0, out Vector3 point1, out float radius);
-            return Physics.OverlapCapsuleNonAlloc(point0, point1, radius, results, layerMask, queryTriggerInteraction);
+            return UnityEngine.Physics.OverlapCapsuleNonAlloc(point0, point1, radius, results, layerMask,
+                queryTriggerInteraction);
         }
 
         #endregion
@@ -194,7 +205,7 @@ namespace UnityExtensions
         {
             Transform transform = sphere.transform;
             center = transform.TransformPoint(sphere.center);
-            radius = sphere.radius * transform.lossyScale.Abs().Max();
+            radius = sphere.radius * transform.lossyScale.Abs().MaxDimensionValue();
         }
 
         private static void ToWorldSpaceCapsule(this CapsuleCollider capsule, out Vector3 point0, out Vector3 point1,
