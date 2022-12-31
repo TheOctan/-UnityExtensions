@@ -9,6 +9,7 @@
 * `VectorExtensions`
 * `ColorExtensions`
 * `CollectionExtensions`
+* `ArrayExtensions`
 * `LinearConverter`
 
 <!-- ## Documentation

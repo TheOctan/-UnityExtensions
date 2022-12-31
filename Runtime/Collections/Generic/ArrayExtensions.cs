@@ -9,7 +9,7 @@
 
         public static bool NotEmpty<T>(this T[] array)
         {
-            return array.Length == 0;
+            return array.Length != 0;
         }
     }
 }
